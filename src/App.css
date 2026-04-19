@@ -4,7 +4,7 @@
 
 .home {
   min-height: 100svh;
-  background: #F0E8DD;
+  background: #FFF;
   padding: 0 clamp(16px, 4vw, 48px);
 }
 
@@ -54,16 +54,42 @@
 }
 
 .shelf-scene {
-  position: relative;
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
+  box-shadow: 0 6px 20px rgba(44, 24, 16, 0.07);
+}
+
+.shelf-scene-inner {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .shelf-scene-inner {
+      position: relative;
+  }
 }
 
 .shelf-image {
+  display: block;
   width: 100%;
   height: auto;
+}
+
+.desktop {
   display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
 }
 
 .hero-sparkle {
@@ -103,8 +129,31 @@
   z-index: 10;
 }
 
+.button-show-hotspots {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  background: #fff;
+  opacity: 0.7;
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.button-show-hotspots:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
 .hotspot.visible {
-  background: rgba(180, 180, 190, 0.15);
+  background: rgba(180, 180, 190, 0.45);
   border-color: rgba(180, 180, 190, 0.4);
   box-shadow:
     0 0 24px rgba(0, 0, 0, 0.2),
@@ -131,7 +180,7 @@
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
-  background: rgba(44, 24, 16, 0.92);
+  background: #000;
   color: #FAF3EB;
   padding: 6px 16px;
   border-radius: 6px;
@@ -203,11 +252,10 @@
 }
 
 .explore-card {
-  background: #F8F2EA;
-  border: 1px solid #E6DDD2;
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 22px 22px 26px;
   text-decoration: none;
+  box-shadow: 0 6px 20px rgba(44, 24, 16, 0.07);
   color: inherit;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   display: flex;
@@ -254,7 +302,6 @@
    ═══════════════════════════════════ */
 
 .page-layout {
-  padding: 24px 48px;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -275,6 +322,8 @@
 
 .page-header {
   text-align: center;
+  padding: 0 20px 28px;
+
 }
 
 .back-link {
@@ -653,7 +702,8 @@
   padding: 12px;
 }
 
-.vinyl-card:hover .vinyl-overlay {
+.vinyl-card:hover .vinyl-overlay,
+.vinyl-card.active .vinyl-overlay {
   opacity: 1;
 }
 
@@ -670,7 +720,9 @@
 }
 
 .vinyl-card:hover .vinyl-album-name,
-.vinyl-stack-item:hover .vinyl-album-name {
+.vinyl-stack-item:hover .vinyl-album-name,
+.vinyl-card.active .vinyl-album-name,
+.vinyl-stack-item.active .vinyl-album-name {
   transform: translateY(0);
 }
 
@@ -685,7 +737,9 @@
 }
 
 .vinyl-card:hover .vinyl-artist-name,
-.vinyl-stack-item:hover .vinyl-artist-name {
+.vinyl-stack-item:hover .vinyl-artist-name,
+.vinyl-card.active .vinyl-artist-name,
+.vinyl-stack-item.active .vinyl-artist-name {
   transform: translateY(0);
 }
 
@@ -740,7 +794,8 @@
   margin-right: 0;
 }
 
-.vinyl-stack-item:hover {
+.vinyl-stack-item:hover,
+.vinyl-stack-item.active {
   transform: translateY(-12px) scale(1.08);
   z-index: 50 !important;
   box-shadow:
@@ -748,7 +803,8 @@
     0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.vinyl-stack-item:hover~.vinyl-stack-item {
+.vinyl-stack-item:hover~.vinyl-stack-item,
+.vinyl-stack-item.active~.vinyl-stack-item {
   transform: translateX(40px);
 }
 
@@ -761,7 +817,8 @@
     filter 0.4s ease;
 }
 
-.vinyl-stack-item:hover .vinyl-stack-cover {
+.vinyl-stack-item:hover .vinyl-stack-cover,
+.vinyl-stack-item.active .vinyl-stack-cover {
   filter: brightness(0.4);
 }
 
@@ -779,7 +836,8 @@
   padding: 10px;
 }
 
-.vinyl-stack-item:hover .vinyl-stack-overlay {
+.vinyl-stack-item:hover .vinyl-stack-overlay,
+.vinyl-stack-item.active .vinyl-stack-overlay {
   opacity: 1;
 }
 
@@ -812,6 +870,19 @@
 
   .shelf-scene {
     border-radius: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shelf-scene-inner {
+    width: max-content;
+  }
+
+  .shelf-image {
+    height: 550px;
+    width: auto;
+    max-width: none;
   }
 
   .home-explore {
@@ -830,10 +901,6 @@
 
   .explore-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .page-header {
-    padding: 0 20px 28px;
   }
 
   .back-link {
@@ -863,14 +930,26 @@
 
   /* Vinyl responsive */
   .vinyl-grid {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
   }
 
+  .vinyl-card {
+    width: 100%;
+  }
+
+  .vinyl-stack {
+    overflow-x: auto;
+    padding-bottom: 24px;
+    padding-right: 80px;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .vinyl-stack-item {
-    width: 120px;
-    min-width: 120px;
-    margin-right: -65px;
+    width: 181px;
+    min-width: 181px;
+    margin-right: -80px;
   }
 
   .vinyl-tabs {
@@ -903,9 +982,9 @@
   }
 
   .vinyl-stack-item {
-    width: 100px;
-    min-width: 100px;
-    margin-right: -55px;
+    width: 181px;
+    min-width: 181px;
+    margin-right: -65px;
   }
 
   .vinyl-album-name {

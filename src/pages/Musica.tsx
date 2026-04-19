@@ -128,6 +128,7 @@ type Tab = 'todos' | 'categorias'
 
 export default function Musica() {
   const [activeTab, setActiveTab] = useState<Tab>('todos')
+  const [activeAlbum, setActiveAlbum] = useState<string | null>(null)
 
   const categories = albums.reduce<Record<string, Album[]>>((acc, album) => {
     if (!acc[album.category]) acc[album.category] = []
@@ -165,7 +166,15 @@ export default function Musica() {
               href={album.spotifyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="vinyl-card"
+              className={`vinyl-card ${activeAlbum === album.title ? 'active' : ''}`}
+              onClick={(e) => {
+                if (window.innerWidth <= 768) {
+                  if (activeAlbum !== album.title) {
+                    e.preventDefault()
+                    setActiveAlbum(album.title)
+                  }
+                }
+              }}
             >
               <div className="vinyl-cover-wrapper">
                 <img
@@ -200,8 +209,16 @@ export default function Musica() {
                     href={album.spotifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="vinyl-stack-item"
+                    className={`vinyl-stack-item ${activeAlbum === album.title ? 'active' : ''}`}
                     style={{ '--stack-index': stackOrder } as React.CSSProperties}
+                    onClick={(e) => {
+                      if (window.innerWidth <= 768) {
+                        if (activeAlbum !== album.title) {
+                          e.preventDefault()
+                          setActiveAlbum(album.title)
+                        }
+                      }
+                    }}
                   >
                     <img
                       className="vinyl-stack-cover"

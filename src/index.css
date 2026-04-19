@@ -1,31 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  /* Tons de base (antigos Cream) -> Agora Cinzas Claros/Off-white */
   --color-cream: #E5E7EB;
-  /* Cinza neutro muito claro */
   --color-cream-light: #F3F4F6;
-  /* Quase branco, levemente frio */
   --color-cream-dark: #D1D5DB;
-  /* Cinza médio para profundidade */
 
-  /* Tons escuros (antigos Browns) -> Agora Grafite e Carvão */
   --color-warm-brown: #4B5563;
-  /* Cinza médio-escuro (Cool Gray) */
   --color-dark-brown: #111827;
-  /* Azul-escuro quase preto (Night) */
-
-  /* Tons de destaque (antigos Tan/Muted) -> Agora Prata e Aço */
   --color-tan: #9CA3AF;
-  /* Cinza metálico fosco */
   --color-muted: #6B7280;
-  /* Cinza sóbrio */
-
-  /* Destaque (antigo Gold) -> Agora Prata Metálico ou Azul Aço */
   --color-gold: #94A3B8;
-  /* Steel Blue (combina melhor com cinzas) */
 
-  /* Background do Card */
   --color-card-bg: #F9FAFB;
 
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
