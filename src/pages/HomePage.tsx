@@ -64,7 +64,7 @@ export default function HomePage() {
 
         <div className="explore-grid">  
           {cards.map((s) => (
-            <Link target='_blank' key={s.to} to={s.to} className="explore-card">
+            <Link target={s.to.includes('https') ? '_blank' : ''} key={s.to} to={s.to} className="explore-card">
               <span className="explore-card-num">{s.num}</span>
               <h3 className="explore-card-title">{s.title}</h3>
               <p className="explore-card-desc">{s.desc}</p>
