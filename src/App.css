@@ -325,7 +325,6 @@
 .page-header {
   text-align: center;
   padding: 0 20px 0px;
-
 }
 
 .back-link {
@@ -382,6 +381,7 @@
   margin: 0 auto;
   width: 100%;
   padding: 0 64px;
+  padding-bottom: 64px;
 }
 
 .content-grid {

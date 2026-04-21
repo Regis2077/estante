@@ -51,18 +51,18 @@ export default function HomePage() {
 
       <section className="home-explore">
         <div className="explore-text">
-          <span className="home-label">Link do github</span>
+          {/* <span className="home-label">Link do github</span> */}
           <h2 className="explore-heading">
             Todos os <br />
             itens da <br />
             minha estante.
           </h2>
           <p className="explore-body">
-            Fique a vontade para forkar o projeto e criar a sua. A imagem criei pelo Gemini + photoshop para adicionar os items.
+            A imagem criei pelo Gemini + photoshop para adicionar os items.
           </p>
         </div>
 
-        <div className="explore-grid">  
+        <div className="explore-grid">
           {cards.map((s) => (
             <Link target={s.to.includes('https') ? '_blank' : ''} key={s.to} to={s.to} className="explore-card">
               <span className="explore-card-num">{s.num}</span>
