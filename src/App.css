@@ -63,9 +63,10 @@
 .shelf-scene-inner {
   width: 100%;
 }
+
 @media (max-width: 768px) {
   .shelf-scene-inner {
-      position: relative;
+    position: relative;
   }
 }
 
@@ -87,6 +88,7 @@
   .desktop {
     display: none;
   }
+
   .mobile {
     display: block;
   }
@@ -322,7 +324,7 @@
 
 .page-header {
   text-align: center;
-  padding: 0 20px 28px;
+  padding: 0 20px 0px;
 
 }
 
@@ -379,6 +381,7 @@
   flex: 1;
   margin: 0 auto;
   width: 100%;
+  padding: 0 64px;
 }
 
 .content-grid {
@@ -768,6 +771,7 @@
   gap: 0;
   position: relative;
   padding-left: 8px;
+  flex-wrap: wrap;
 }
 
 .vinyl-stack-item {
@@ -776,6 +780,8 @@
   text-decoration: none;
   color: inherit;
   width: 275px;
+  min-width: 275px;
+  flex-shrink: 0;
   aspect-ratio: 1;
   overflow: hidden;
   margin-right: -80px;
@@ -788,6 +794,7 @@
     0 4px 16px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   z-index: calc(var(--stack-index, 0));
+  margin-top: 24px;
 }
 
 .vinyl-stack-item:last-child {
@@ -944,6 +951,7 @@
     padding-bottom: 24px;
     padding-right: 80px;
     -webkit-overflow-scrolling: touch;
+    flex-wrap: inherit;
   }
 
   .vinyl-stack-item {
