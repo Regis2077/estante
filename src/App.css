@@ -133,8 +133,8 @@
 
 .button-show-hotspots {
   position: absolute;
-  left: 24px;
-  bottom: 24px;
+  right: 24px;
+  top: 24px;
   background: #fff;
   opacity: 0.7;
   padding: 8px;
@@ -307,6 +307,7 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+  overflow-x: clip;
   animation: pageEnter 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -374,6 +375,47 @@
   height: 3px;
   border-radius: 2px;
   margin: 20px auto 0;
+}
+
+/* ─── Swiss / International Typographic header ─── */
+
+.page-header--swiss {
+  text-align: left;
+}
+
+.page-title--swiss {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(52px, 13vw, 128px);
+  font-weight: 800;
+  text-transform: lowercase;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 16px;
+  border-bottom: 3px solid currentColor;
+}
+
+/* /music — título no canto superior direito, Unbounded */
+.page-title--music {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  text-transform: none;
+  font-weight: 700;
+  font-size: clamp(56px, 6.5vw, 84px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.page-description {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 500;
+  line-height: 1.45;
+  color: #1a1a1a;
+  max-width: 1100px;
+  margin: 14px auto 36px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid #1a1a1a;
 }
 
 .page-content {
@@ -460,8 +502,8 @@
 
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 32px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 6px;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -473,9 +515,9 @@
   align-items: center;
   text-align: center;
   cursor: default;
+  padding-bottom: 20px;
   animation: bookFadeIn 0.5s ease both;
 }
-
 
 .book-card:nth-child(1) {
   animation-delay: 0.05s;
@@ -524,7 +566,6 @@
     transform: translateY(0) scale(1);
   }
 }
-
 
 .book-cover-wrapper {
   position: relative;
@@ -598,49 +639,39 @@
 /* ─── Tabs ─── */
 
 .vinyl-tabs {
-  display: flex;
+  display: inline-flex;
   gap: 4px;
-  margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 32px;
-  padding: 4px;
-  max-width: 320px;
+  margin-bottom: 52px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 100px;
+  padding: 5px;
 }
 
 .vinyl-tab {
-  flex: 1;
-  padding: 10px 20px;
+  padding: 9px 24px;
   border: none;
   background: transparent;
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  color: #FFF;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.55);
   cursor: pointer;
-  border-radius: 32px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 100px;
+  transition: color 0.3s ease, background 0.3s ease;
 }
 
-
-.vinyl-tab--active {
-  color: #FAF3EB;
-  border: 1px solid #E6DDD2;
-  box-shadow: 0 2px 8px rgba(44, 24, 16, 0.2);
+.vinyl-tab:hover {
+  color: #ffffff;
 }
 
+.vinyl-tab--active,
 .vinyl-tab--active:hover {
-  color: #FAF3EB;
-}
-
-/* ─── "Todos" Grid ─── */
-
-.vinyl-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  animation: vinylFadeIn 0.4s ease;
+  color: #0d0d0d;
+  background: #E6DDD2;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes vinylFadeIn {
@@ -655,25 +686,18 @@
   }
 }
 
-.vinyl-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 300px;
-}
+/* ─── Shared vinyl item: sleeve (cover) ─── */
 
-.vinyl-card:hover {
-  transform: scale(1.03);
-}
-
-.vinyl-cover-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
+.vinyl-sleeve {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  background: #1a1a1a;
+  border-radius: 3px;
+  background: #161616;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  z-index: 1;
 }
 
 .vinyl-cover {
@@ -681,14 +705,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    filter 0.4s ease;
-}
-
-.vinyl-card:hover .vinyl-cover,
-.vinyl-stack-item:hover .vinyl-stack-cover {
-  transform: scale(1.08);
-  filter: brightness(0.45);
+  transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .vinyl-overlay {
@@ -697,22 +714,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 4px;
+  padding: 16px;
   opacity: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.15) 55%,
+      transparent 100%);
   transition: opacity 0.35s ease;
   z-index: 2;
-  padding: 12px;
-}
-
-.vinyl-card:hover .vinyl-overlay,
-.vinyl-card.active .vinyl-overlay {
-  opacity: 1;
 }
 
 .vinyl-album-name {
   font-family: var(--font-serif);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: #ffffff;
   text-align: center;
@@ -720,13 +736,6 @@
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
   transform: translateY(8px);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
-}
-
-.vinyl-card:hover .vinyl-album-name,
-.vinyl-stack-item:hover .vinyl-album-name,
-.vinyl-card.active .vinyl-album-name,
-.vinyl-stack-item.active .vinyl-album-name {
-  transform: translateY(0);
 }
 
 .vinyl-artist-name {
@@ -739,39 +748,95 @@
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
 }
 
+/* ── Reveal interaction (hover on desktop, .active tap on mobile) ── */
+
+.vinyl-card:hover .vinyl-cover,
+.vinyl-card.active .vinyl-cover,
+.vinyl-stack-item:hover .vinyl-cover,
+.vinyl-stack-item.active .vinyl-cover {
+  transform: scale(1.08);
+  filter: brightness(0.45);
+}
+
+.vinyl-card:hover .vinyl-overlay,
+.vinyl-card.active .vinyl-overlay,
+.vinyl-stack-item:hover .vinyl-overlay,
+.vinyl-stack-item.active .vinyl-overlay {
+  opacity: 1;
+}
+
+.vinyl-card:hover .vinyl-album-name,
+.vinyl-card.active .vinyl-album-name,
+.vinyl-stack-item:hover .vinyl-album-name,
+.vinyl-stack-item.active .vinyl-album-name,
 .vinyl-card:hover .vinyl-artist-name,
-.vinyl-stack-item:hover .vinyl-artist-name,
 .vinyl-card.active .vinyl-artist-name,
+.vinyl-stack-item:hover .vinyl-artist-name,
 .vinyl-stack-item.active .vinyl-artist-name {
   transform: translateY(0);
 }
 
-/* ─── "Por Categoria" View ─── */
+/* ─── "Todos" — flat grid ─── */
+
+.vinyl-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  animation: vinylFadeIn 0.4s ease;
+}
+
+.vinyl-card {
+  position: relative;
+  display: block;
+  width: 300px;
+  aspect-ratio: 1;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vinyl-card:hover,
+.vinyl-card.active {
+  transform: scale(1.03);
+  z-index: 5;
+}
+
+.vinyl-card:hover .vinyl-sleeve,
+.vinyl-card.active .vinyl-sleeve {
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* ─── "Por Categoria" — overlapping shelf row ─── */
 
 .vinyl-categories {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 56px;
   animation: vinylFadeIn 0.4s ease;
 }
 
-
 .vinyl-category-title {
-  font-size: clamp(18px, 2vw, 24px);
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-size: clamp(18px, 2vw, 26px);
   font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0;
   color: #E6DDD2;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  letter-spacing: -0.3px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(230, 221, 210, 0.15);
 }
 
 .vinyl-stack {
   display: flex;
   flex-direction: row;
-  gap: 0;
-  position: relative;
-  padding-left: 8px;
   flex-wrap: wrap;
+  row-gap: 32px;
+  position: relative;
+  padding: 28px 0 16px 8px;
 }
 
 .vinyl-stack-item {
@@ -783,69 +848,40 @@
   min-width: 275px;
   flex-shrink: 0;
   aspect-ratio: 1;
-  overflow: hidden;
   margin-right: -80px;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0s,
-    margin-right 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.4s ease;
-  box-shadow:
-    -4px 0 12px rgba(0, 0, 0, 0.25),
-    0 4px 16px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   z-index: calc(var(--stack-index, 0));
-  margin-top: 24px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    margin-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .vinyl-stack-item:last-child {
   margin-right: 0;
 }
 
+/* directional shadow gives the fanned "row of records" depth */
+.vinyl-stack-item .vinyl-sleeve {
+  box-shadow:
+    -8px 0 20px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
 .vinyl-stack-item:hover,
 .vinyl-stack-item.active {
   transform: translateY(-12px) scale(1.08);
   z-index: 50 !important;
+}
+
+.vinyl-stack-item:hover .vinyl-sleeve,
+.vinyl-stack-item.active .vinyl-sleeve {
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    0 4px 12px rgba(0, 0, 0, 0.2);
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.vinyl-stack-item:hover~.vinyl-stack-item,
-.vinyl-stack-item.active~.vinyl-stack-item {
+.vinyl-stack-item:hover ~ .vinyl-stack-item,
+.vinyl-stack-item.active ~ .vinyl-stack-item {
   transform: translateX(40px);
-}
-
-.vinyl-stack-cover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    filter 0.4s ease;
-}
-
-.vinyl-stack-item:hover .vinyl-stack-cover,
-.vinyl-stack-item.active .vinyl-stack-cover {
-  filter: brightness(0.4);
-}
-
-.vinyl-stack-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: end;
-  gap: 4px;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: 2;
-  padding: 10px;
-}
-
-.vinyl-stack-item:hover .vinyl-stack-overlay,
-.vinyl-stack-item.active .vinyl-stack-overlay {
-  opacity: 1;
 }
 
 /* ═══════════════════════════════════
@@ -928,7 +964,7 @@
 
   .books-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px 16px;
+    gap: 6px;
   }
 
   .page-footer {
@@ -972,7 +1008,7 @@
 
   .books-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px 14px;
+    gap: 5px;
   }
 
   .book-title {

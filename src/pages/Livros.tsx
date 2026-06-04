@@ -4,7 +4,14 @@ import { books } from '../data/books'
 export default function Livros() {
   return (
     <PageLayout
-      title="Meus Livros"
+      title="meus livros"
+      variant="swiss"
+      description={
+        <>
+          uma coleção dos livros que já li ou tenho interesse em ler, reunidos
+          num só lugar.
+        </>
+      }
     >
       <div className="books-grid">
         {books.map((book) => (

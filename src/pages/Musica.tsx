@@ -4,6 +4,23 @@ import { albums, type Album } from '../data/albuns'
 
 type Tab = 'todos' | 'categorias'
 
+function VinylArt({ album }: { album: Album }) {
+  return (
+    <div className="vinyl-sleeve">
+      <img
+        className="vinyl-cover"
+        src={album.cover}
+        alt={`Capa de ${album.title}`}
+        loading="lazy"
+      />
+      <div className="vinyl-overlay">
+        <span className="vinyl-album-name">{album.title}</span>
+        <span className="vinyl-artist-name">{album.artist}</span>
+      </div>
+    </div>
+  )
+}
+
 export default function Musica() {
   const [activeTab, setActiveTab] = useState<Tab>('categorias')
   const [activeAlbum, setActiveAlbum] = useState<string | null>(null)
@@ -26,10 +43,19 @@ export default function Musica() {
     return albumsB.length - albumsA.length
   })
 
+  const handleMobileReveal = (e: React.MouseEvent, title: string) => {
+    if (window.innerWidth <= 768 && activeAlbum !== title) {
+      e.preventDefault()
+      setActiveAlbum(title)
+    }
+  }
+
   return (
     <PageLayout
-      title="Collection"
+      title="My Musics"
       theme="dark"
+      align="right"
+      titleClassName="page-title--music"
     >
       {/* Tabs */}
       <div className="vinyl-tabs">
@@ -57,70 +83,36 @@ export default function Musica() {
               target="_blank"
               rel="noopener noreferrer"
               className={`vinyl-card ${activeAlbum === album.title ? 'active' : ''}`}
-              onClick={(e) => {
-                if (window.innerWidth <= 768) {
-                  if (activeAlbum !== album.title) {
-                    e.preventDefault()
-                    setActiveAlbum(album.title)
-                  }
-                }
-              }}
+              onClick={(e) => handleMobileReveal(e, album.title)}
             >
-              <div className="vinyl-cover-wrapper">
-                <img
-                  className="vinyl-cover"
-                  src={album.cover}
-                  alt={`Capa de ${album.title}`}
-                  loading="lazy"
-                />
-                <div className="vinyl-overlay">
-                  <span className="vinyl-album-name">{album.title}</span>
-                  <span className="vinyl-artist-name">{album.artist}</span>
-                </div>
-              </div>
+              <VinylArt album={album} />
             </a>
           ))}
         </div>
       )}
 
-      {/* "Por Categoria" view – stacked sections */}
+      {/* "Por Categoria" view – stacked shelf rows */}
       {activeTab === 'categorias' && (
         <div className="vinyl-categories">
-
           {sortedCategoryEntries.map(([category, catAlbums]) => (
             <div key={category} className="vinyl-category-section">
               <h3 className="vinyl-category-title">{category}</h3>
               <div className="vinyl-stack">
                 {catAlbums.map((album, idx) => {
-                  const stackOrder = catAlbums.length - idx;
-
-                  return <a
-                    key={album.title}
-                    href={album.spotifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`vinyl-stack-item ${activeAlbum === album.title ? 'active' : ''}`}
-                    style={{ '--stack-index': stackOrder } as React.CSSProperties}
-                    onClick={(e) => {
-                      if (window.innerWidth <= 768) {
-                        if (activeAlbum !== album.title) {
-                          e.preventDefault()
-                          setActiveAlbum(album.title)
-                        }
-                      }
-                    }}
-                  >
-                    <img
-                      className="vinyl-stack-cover"
-                      src={album.cover}
-                      alt={`Capa de ${album.title}`}
-                      loading="lazy"
-                    />
-                    <div className="vinyl-stack-overlay">
-                      <span className="vinyl-album-name">{album.title}</span>
-                      <span className="vinyl-artist-name">{album.artist}</span>
-                    </div>
-                  </a>
+                  const stackOrder = catAlbums.length - idx
+                  return (
+                    <a
+                      key={album.title}
+                      href={album.spotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`vinyl-stack-item ${activeAlbum === album.title ? 'active' : ''}`}
+                      style={{ '--stack-index': stackOrder } as React.CSSProperties}
+                      onClick={(e) => handleMobileReveal(e, album.title)}
+                    >
+                      <VinylArt album={album} />
+                    </a>
+                  )
                 })}
               </div>
             </div>
